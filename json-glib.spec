@@ -1,4 +1,4 @@
-Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format 
+Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Name:		json-glib
 Version:	0.6.2
 Release:	1
@@ -6,15 +6,17 @@ License:	LGPL v2
 Group:		Development/Libraries
 Source0:	http://folks.o-hand.com/~ebassi/sources/%{name}-%{version}.tar.gz
 # Source0-md5:	d98f5580035ad0b37fa11896053a57af
+URL:		http://live.gnome.org/JsonGlib
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gtk-doc
 BuildRequires:	libtool
-URL:		http://live.gnome.org/JsonGlib
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-JSON-GLib is a library providing serialization and deserialization support for the JavaScript Object Notation (JSON) format described by RFC 4627.
+JSON-GLib is a library providing serialization and deserialization
+support for the JavaScript Object Notation (JSON) format described by
+RFC 4627.
 
 %package devel
 Summary:	Header files for the json-glib library
