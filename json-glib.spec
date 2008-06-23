@@ -1,7 +1,7 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Name:		json-glib
 Version:	0.6.2
-Release:	2
+Release:	3
 License:	LGPL v2
 Group:		Development/Libraries
 Source0:	http://folks.o-hand.com/~ebassi/sources/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ install -d $RPM_BUILD_ROOT%{_gtkdocdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
