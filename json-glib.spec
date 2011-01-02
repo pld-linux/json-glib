@@ -1,9 +1,10 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
+Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
 Version:	0.12.0
 Release:	1
-License:	LGPL v2
-Group:		Development/Libraries
+License:	LGPL v2.1+
+Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.12/%{name}-%{version}.tar.bz2
 # Source0-md5:	ee611ef8d7b6e67a14021b32d66b7d1a
 URL:		http://live.gnome.org/JsonGlib
@@ -13,7 +14,7 @@ BuildRequires:	docbook-dtd412-xml
 BuildRequires:	glib2-devel >= 1:2.16.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.13
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -22,8 +23,14 @@ JSON-GLib is a library providing serialization and deserialization
 support for the JavaScript Object Notation (JSON) format described by
 RFC 4627.
 
+%description -l pl.UTF-8
+JSON-GLib to biblioteka zapewniająca obsługę serializacji i
+deserializacji dla formatu JSON (JavaScript Object Notation) opisanego
+w RFC 4627.
+
 %package devel
 Summary:	Header files for the json-glib library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.16.0
@@ -31,13 +38,20 @@ Requires:	glib2-devel >= 1:2.16.0
 %description devel
 Header files for the json-glib library.
 
+%description devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki json-glib.
+
 %package apidocs
 Summary:	json-glib API documentation
+Summary(pl.UTF-8):	Dokumentacja API json-glib
 Group:		Documentation
 Requires:	gtk-doc-common
 
 %description apidocs
 json-glib API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API json-glib.
 
 %prep
 %setup -q
