@@ -1,17 +1,18 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	0.12.6
+Version:	0.14.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.12/%{name}-%{version}.tar.bz2
-# Source0-md5:	88e83b27854748421f5dadf47ca42d1a
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.14/%{name}-%{version}.tar.xz
+# Source0-md5:	830707d4f584313816b0addde5830eb2
 URL:		http://live.gnome.org/JsonGlib
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	glib2-devel >= 1:2.16.0
+BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	gettext-devel >= 0.18
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.13
 BuildRequires:	libtool >= 2:2.2.6
@@ -33,7 +34,7 @@ Summary:	Header files for the json-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.16.0
+Requires:	glib2-devel >= 1:2.26.0
 
 %description devel
 Header files for the json-glib library.
@@ -75,6 +76,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libjson-glib-1.0.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -83,7 +86,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc ChangeLog NEWS README
 %attr(755,root,root) %{_libdir}/libjson-glib-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libjson-glib-1.0.so.0
 %{_libdir}/girepository-1.0/Json-1.0.typelib
@@ -92,7 +95,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libjson-glib-1.0.so
 %{_datadir}/gir-1.0/Json-1.0.gir
-%{_libdir}/libjson-glib-1.0.la
 %{_includedir}/json-glib-1.0
 %{_pkgconfigdir}/json-glib-1.0.pc
 
