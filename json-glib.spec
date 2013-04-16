@@ -1,22 +1,23 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	0.14.2
+Version:	0.16.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.14/%{name}-%{version}.tar.xz
-# Source0-md5:	2a22832c4654156a35b38ee027f6f065
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/0.16/%{name}-%{version}.tar.xz
+# Source0-md5:	bbca11f32509d6eb3f54d24156e7312d
 URL:		http://live.gnome.org/JsonGlib
 BuildRequires:	autoconf >= 2.63
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel >= 0.18
-BuildRequires:	glib2-devel >= 1:2.26.0
+BuildRequires:	glib2-devel >= 1:2.34.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.13
 BuildRequires:	libtool >= 2:2.2.6
 BuildRequires:	pkgconfig
+Requires:	glib2 >= 1:2.34.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -34,7 +35,7 @@ Summary:	Header files for the json-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.26.0
+Requires:	glib2-devel >= 1:2.34.0
 
 %description devel
 Header files for the json-glib library.
@@ -88,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-1.0.lang
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS README
+%doc ChangeLog NEWS
 %attr(755,root,root) %{_libdir}/libjson-glib-1.0.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libjson-glib-1.0.so.0
 %{_libdir}/girepository-1.0/Json-1.0.typelib
