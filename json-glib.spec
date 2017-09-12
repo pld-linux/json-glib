@@ -1,23 +1,21 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.2.8
+Version:	1.4.2
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.2/%{name}-%{version}.tar.xz
-# Source0-md5:	ff31e7d0594df44318e12facda3d086e
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.4/%{name}-%{version}.tar.xz
+# Source0-md5:	35107e23a7bbbc70f31c34f7b9adf1c3
 URL:		http://live.gnome.org/JsonGlib
-BuildRequires:	autoconf >= 2.63
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.18
-BuildRequires:	glib2-devel >= 1:2.37.6
+BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.20
-BuildRequires:	libtool >= 2:2.2.6
+BuildRequires:	meson >= 0.40.1
 BuildRequires:	pkgconfig
-Requires:	glib2 >= 1:2.37.6
+Requires:	glib2 >= 1:2.44.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -35,7 +33,7 @@ Summary:	Header files for the json-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.37.6
+Requires:	glib2-devel >= 1:2.44.0
 
 %description devel
 Header files for the json-glib library.
@@ -62,25 +60,18 @@ Dokumentacja API json-glib.
 %setup -q
 
 %build
-%{__gtkdocize}
-%{__libtoolize}
-%{__aclocal} -I build/autotools
-%{__autoheader}
-%{__autoconf}
-%{__automake}
-%configure \
-	--enable-gtk-doc \
-	--with-html-dir=%{_gtkdocdir} \
-	--disable-silent-rules
-%{__make}
+%meson build \
+	-Dintrospection=true \
+	-Ddocs=true
+%ninja -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+DESTDIR=$RPM_BUILD_ROOT \
+%ninja -C build install
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libjson-glib-1.0.la
+%{__rm} -rf $RPM_BUILD_ROOT{%{_datadir},%{_libdir}}/installed-tests/json-glib-1.0
 
 %find_lang %{name}-1.0
 
@@ -92,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-1.0.lang
 %defattr(644,root,root,755)
-%doc ChangeLog NEWS
+%doc NEWS README.md
 %attr(755,root,root) %{_bindir}/json-glib-format
 %attr(755,root,root) %{_bindir}/json-glib-validate
 %attr(755,root,root) %{_libdir}/libjson-glib-1.0.so.*.*.*
