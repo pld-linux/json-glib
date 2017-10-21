@@ -15,6 +15,7 @@ BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.20
 BuildRequires:	meson >= 0.40.1
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.726
 Requires:	glib2 >= 1:2.44.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -63,13 +64,13 @@ Dokumentacja API json-glib.
 %meson build \
 	-Dintrospection=true \
 	-Ddocs=true
-%ninja -C build
+
+%meson_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-DESTDIR=$RPM_BUILD_ROOT \
-%ninja -C build install
+%meson_install -C build
 
 %{__rm} -rf $RPM_BUILD_ROOT{%{_datadir},%{_libdir}}/installed-tests/json-glib-1.0
 
