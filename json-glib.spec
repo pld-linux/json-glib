@@ -1,21 +1,23 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.4.2
+Version:	1.4.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.4/%{name}-%{version}.tar.xz
-# Source0-md5:	35107e23a7bbbc70f31c34f7b9adf1c3
-URL:		http://live.gnome.org/JsonGlib
+# Source0-md5:	4d4bb9837f6d31e32d0ce658ae135f68
+URL:		https://wiki.gnome.org/Projects/JsonGlib
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.20
+BuildRequires:	libxslt-progs
 BuildRequires:	meson >= 0.40.1
+BuildRequires:	ninja
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.726
+BuildRequires:	rpmbuild(macros) >= 1.733
 Requires:	glib2 >= 1:2.44.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -42,6 +44,18 @@ Header files for the json-glib library.
 %description devel -l pl.UTF-8
 Pliki nagłówkowe biblioteki json-glib.
 
+%package static
+Summary:	Static json-glib library
+Summary(pl.UTF-8):	Statyczna biblioteka json-glib
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
+
+%description static
+Static json-glib library.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka json-glib.
+
 %package apidocs
 Summary:	json-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API json-glib
@@ -63,7 +77,8 @@ Dokumentacja API json-glib.
 %build
 %meson build \
 	-Dintrospection=true \
-	-Ddocs=true
+	-Ddocs=true \
+	-Dman=true
 
 %meson_build -C build
 
@@ -99,6 +114,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/Json-1.0.gir
 %{_includedir}/json-glib-1.0
 %{_pkgconfigdir}/json-glib-1.0.pc
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libjson-glib-1.0.a
 
 %files apidocs
 %defattr(644,root,root,755)
