@@ -1,24 +1,27 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.4.4
+Version:	1.6.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.4/%{name}-%{version}.tar.xz
-# Source0-md5:	4d4bb9837f6d31e32d0ce658ae135f68
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.6/%{name}-%{version}.tar.xz
+# Source0-md5:	b0046d7de4c0fcbb3c71650527330fa6
 URL:		https://wiki.gnome.org/Projects/JsonGlib
-BuildRequires:	docbook-dtd412-xml
+BuildRequires:	docbook-dtd43-xml
 BuildRequires:	gettext-tools >= 0.18
-BuildRequires:	glib2-devel >= 1:2.44.0
+BuildRequires:	glib2-devel >= 1:2.54.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	gtk-doc >= 1.20
 BuildRequires:	libxslt-progs
-BuildRequires:	meson >= 0.40.1
-BuildRequires:	ninja
+BuildRequires:	meson >= 0.52.0
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(macros) >= 1.733
-Requires:	glib2 >= 1:2.44.0
+BuildRequires:	python3 >= 1:3
+BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
+Requires:	glib2 >= 1:2.54.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +39,7 @@ Summary:	Header files for the json-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.44.0
+Requires:	glib2-devel >= 1:2.54.0
 
 %description devel
 Header files for the json-glib library.
@@ -61,7 +64,7 @@ Summary:	json-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API json-glib
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -76,18 +79,16 @@ Dokumentacja API json-glib.
 
 %build
 %meson build \
-	-Dintrospection=true \
-	-Ddocs=true \
 	-Dman=true
 
-%meson_build -C build
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%meson_install -C build
+%ninja_install -C build
 
-%{__rm} -rf $RPM_BUILD_ROOT{%{_datadir},%{_libdir}}/installed-tests/json-glib-1.0
+%{__rm} -r $RPM_BUILD_ROOT{%{_datadir},%{_libdir}}/installed-tests/json-glib-1.0
 
 %find_lang %{name}-1.0
 
