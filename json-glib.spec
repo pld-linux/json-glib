@@ -2,7 +2,7 @@ Summary:	JSON-GLib - a library providing serialization and deserialization suppo
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
 Version:	1.6.0
-Release:	1
+Release:	2
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/json-glib/1.6/%{name}-%{version}.tar.xz
@@ -88,7 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-%{__rm} -r $RPM_BUILD_ROOT{%{_datadir},%{_libdir}}/installed-tests/json-glib-1.0
+%{__rm} -r $RPM_BUILD_ROOT{%{_libexecdir},%{_datadir}}/installed-tests/json-glib-1.0
 
 %find_lang %{name}-1.0
 
