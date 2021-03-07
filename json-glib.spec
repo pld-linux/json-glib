@@ -64,7 +64,7 @@ Summary:	json-glib API documentation
 Summary(pl.UTF-8):	Dokumentacja API json-glib
 Group:		Documentation
 Requires:	gtk-doc-common
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 json-glib API documentation.
