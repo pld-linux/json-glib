@@ -1,23 +1,28 @@
+#
+# Conditional build:
+%bcond_without	apidocs	# API documentation
+
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.6.2
+Version:	1.6.4
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	https://download.gnome.org/sources/json-glib/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	7a981956939e21f78b560ac1ea57f2d7
+# Source0-md5:	8df85e21e6fde3dc6e2f5d5929f7df99
 URL:		https://wiki.gnome.org/Projects/JsonGlib
 BuildRequires:	docbook-dtd43-xml
 BuildRequires:	gettext-tools >= 0.18
+%{?with_apidocs:BuildRequires:	gi-docgen >= 2021.6}
 BuildRequires:	glib2-devel >= 1:2.54.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
-BuildRequires:	gtk-doc >= 1.20
 BuildRequires:	libxslt-progs
-BuildRequires:	meson >= 0.52.0
+BuildRequires:	meson >= 0.55.3
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -77,6 +82,8 @@ Dokumentacja API json-glib.
 
 %build
 %meson build \
+	%{?with_apidocs:-Dgtk_doc=enabled} \
+	-Dintrospection=enabled \
 	-Dman=true
 
 %ninja_build -C build
@@ -89,6 +96,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} -r $RPM_BUILD_ROOT{%{_libexecdir},%{_datadir}}/installed-tests/json-glib-1.0
 
 %find_lang %{name}-1.0
+
+%if %{with apidocs}
+# FIXME: where to package gi-docgen generated docs?
+install -d $RPM_BUILD_ROOT%{_gtkdocdir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/json-glib-1.0 $RPM_BUILD_ROOT%{_gtkdocdir}
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -118,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libjson-glib-1.0.a
 
+%if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/json-glib
+%{_gtkdocdir}/json-glib-1.0
+%endif
