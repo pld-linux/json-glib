@@ -13,6 +13,7 @@ Source0:	https://download.gnome.org/sources/json-glib/1.8/%{name}-%{version}.tar
 # Source0-md5:	f1aac2b8a17fd68646653cc4d8426486
 URL:		https://wiki.gnome.org/Projects/JsonGlib
 BuildRequires:	docbook-dtd43-xml
+BuildRequires:	docbook-style-xsl-nons
 BuildRequires:	gettext-tools >= 0.18
 %{?with_apidocs:BuildRequires:	gi-docgen >= 2021.6}
 BuildRequires:	glib2-devel >= 1:2.54.0
