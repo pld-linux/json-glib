@@ -5,12 +5,12 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.6.6
+Version:	1.8.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/json-glib/1.6/%{name}-%{version}.tar.xz
-# Source0-md5:	9c40fcd8cdbf484dd1704480afefae14
+Source0:	https://download.gnome.org/sources/json-glib/1.8/%{name}-%{version}.tar.xz
+# Source0-md5:	f1aac2b8a17fd68646653cc4d8426486
 URL:		https://wiki.gnome.org/Projects/JsonGlib
 BuildRequires:	docbook-dtd43-xml
 BuildRequires:	gettext-tools >= 0.18
@@ -18,7 +18,7 @@ BuildRequires:	gettext-tools >= 0.18
 BuildRequires:	glib2-devel >= 1:2.54.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
 BuildRequires:	libxslt-progs
-BuildRequires:	meson >= 0.55.3
+BuildRequires:	meson >= 0.62.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
