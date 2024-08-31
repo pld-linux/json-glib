@@ -5,21 +5,19 @@
 Summary:	JSON-GLib - a library providing serialization and deserialization support for the JSON format
 Summary(pl.UTF-8):	JSON-GLib - biblioteka zapewniająca serializację i deserializację dla formatu JSON
 Name:		json-glib
-Version:	1.8.0
+Version:	1.10.0
 Release:	1
 License:	LGPL v2.1+
 Group:		Libraries
-Source0:	https://download.gnome.org/sources/json-glib/1.8/%{name}-%{version}.tar.xz
-# Source0-md5:	f1aac2b8a17fd68646653cc4d8426486
+Source0:	https://download.gnome.org/sources/json-glib/1.10/%{name}-%{version}.tar.xz
+# Source0-md5:	4cff0304873cdc4064da2c8881e72b1b
 URL:		https://wiki.gnome.org/Projects/JsonGlib
-BuildRequires:	docbook-dtd43-xml
-BuildRequires:	docbook-style-xsl-nons
+BuildRequires:	docutils
 BuildRequires:	gettext-tools >= 0.18
 %{?with_apidocs:BuildRequires:	gi-docgen >= 2021.6}
-BuildRequires:	glib2-devel >= 1:2.54.0
+BuildRequires:	glib2-devel >= 1:2.72.0
 BuildRequires:	gobject-introspection-devel >= 0.9.5
-BuildRequires:	libxslt-progs
-BuildRequires:	meson >= 0.62.0
+BuildRequires:	meson >= 1.2.0
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pkgconfig
 BuildRequires:	python3 >= 1:3
@@ -27,7 +25,7 @@ BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.029
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Requires:	glib2 >= 1:2.54.0
+Requires:	glib2 >= 1:2.72.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -45,7 +43,7 @@ Summary:	Header files for the json-glib library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki json-glib
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.54.0
+Requires:	glib2-devel >= 1:2.72.0
 
 %description devel
 Header files for the json-glib library.
@@ -82,8 +80,9 @@ Dokumentacja API json-glib.
 
 %build
 %meson build \
-	%{?with_apidocs:-Dgtk_doc=enabled} \
+	%{!?with_apidocs:-Ddocumentation=disabled} \
 	-Dintrospection=enabled \
+	-Dinstalled_tests=false \
 	-Dman=true
 
 %ninja_build -C build
@@ -93,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-%{__rm} -r $RPM_BUILD_ROOT{%{_libexecdir},%{_datadir}}/installed-tests/json-glib-1.0
+#%{__rm} -r $RPM_BUILD_ROOT{%{_libexecdir},%{_datadir}}/installed-tests/json-glib-1.0
 
 %find_lang %{name}-1.0
 
