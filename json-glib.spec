@@ -79,18 +79,18 @@ Dokumentacja API json-glib.
 %setup -q
 
 %build
-%meson build \
+%meson \
 	%{!?with_apidocs:-Ddocumentation=disabled} \
 	-Dintrospection=enabled \
 	-Dinstalled_tests=false \
 	-Dman=true
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 #%{__rm} -r $RPM_BUILD_ROOT{%{_libexecdir},%{_datadir}}/installed-tests/json-glib-1.0
 
